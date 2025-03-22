@@ -1,17 +1,18 @@
 {
 	"name": "anywatch",
 	"version": "1.0.0",
-	"type": "commonjs",
-	"description": "",
-	"main": "index.js",
+	"type": "module",
+	"description": "Backend Anywatch",
+	"main": "dist/index.js",
 	"scripts": {
 		"dev": "ts-node-dev --respawn --transpile-only src/index.ts",
 		"build": "tsc",
-		"start": "node dist/index.js"
+		"start": "node dist/index.js",
+		"heroku-postbuild": "npm run build"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"engines": {
+		"node": "18.x"
+	},
 	"dependencies": {
 		"bcrypt": "^5.1.1",
 		"dotenv": "^16.4.7",
