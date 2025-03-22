@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-import { parse } from "pg-connection-string";
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -7,23 +6,19 @@ dotenv.config();
 function getEnvVariable(key: string): string {
   const value = process.env[key];
   if (!value) {
-    console.error(
-      `❌ ERREUR: La variable d'environnement ${key} n'est pas définie.`
-    );
+    console.error(`❌ ERREUR: La variable d'environnement ${key} n'est pas définie.`);
     process.exit(1);
   }
   return value;
 }
 
-const dbConfig = parse(getEnvVariable("DATABASE_URL"));
-
 export const config = {
   jwtSecret: getEnvVariable("JWT_SECRET"),
   port: process.env.PORT || 3000,
-  db_host: dbConfig.host,
-  db_port: dbConfig.port,
-  db_user: dbConfig.user,
-  db_password: dbConfig.password,
-  db_name: dbConfig.database,
-  database_url: getEnvVariable("DATABASE_URL"),
+  db_host: getEnvVariable("DB_HOST"),
+  db_port: parseInt(getEnvVariable("DB_PORT")),  // Convertir le port en nombre
+  db_user: getEnvVariable("DB_USER"),
+  db_password: getEnvVariable("DB_PASSWORD"),
+  db_name: getEnvVariable("DB_NAME"),
+  // Nous n'utilisons plus DATABASE_URL car nous avons les variables séparées
 };
